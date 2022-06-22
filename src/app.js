@@ -1,0 +1,22 @@
+require("dotenv").config();
+require("../db/dbconnection");
+const cors = require("cors");
+const morgan = require("morgan");
+const usersRoutes = require("../routes/users.routes");
+const productRoutes = require("../routes/product.routes");
+const themeRoutes = require("../routes/theme.routes");
+const express = require("express");
+const app = express();
+require("./prod")(app);
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
+app.use(morgan("common"));
+app.get("/", (req, res) => {
+  res.send("Server Started");
+});
+app.use("/users", usersRoutes);
+app.use("/products", productRoutes);
+app.use("/theme", themeRoutes);
+module.exports = app;
