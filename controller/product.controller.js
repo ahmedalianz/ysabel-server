@@ -58,6 +58,7 @@ class Product {
   static deleteCategory = async (req, res) => {
     try {
       await categoryModel.findByIdAndDelete(req.params.categoryId);
+      await productModel.deleteMany({ category: req.params.categoryId });
       successHandler(null, res, "category deleted  successfully");
     } catch (err) {
       errorHandler(err, res);
