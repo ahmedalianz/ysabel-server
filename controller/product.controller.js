@@ -59,7 +59,11 @@ class Product {
     try {
       await categoryModel.findByIdAndDelete(req.params.categoryId);
       await productModel.deleteMany({ category: req.params.categoryId });
-      successHandler(null, res, "category deleted  successfully");
+      successHandler(
+        null,
+        res,
+        "category and it's products deleted  successfully"
+      );
     } catch (err) {
       errorHandler(err, res);
     }
